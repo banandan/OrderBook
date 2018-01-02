@@ -41,7 +41,7 @@ class OrderBook {
 			break;
 		case MARKET:
 			order = new Order(orderId, orderType, side, volume, price);
-			matchOrder(order);
+			//matchOrder(order);
 			break;
 		case MODIFY:
 			modifyOrder(orderId, orderType, volume, price);
