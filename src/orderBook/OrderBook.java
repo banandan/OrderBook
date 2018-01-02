@@ -122,14 +122,14 @@ class OrderBook {
 				break;
 			}
 			OrderList ol = buys.getOrderList(maxPrice);
-			Order curOrder = ol.head;
+			Order curOrder = ol.getHead();
 			while(order.getVolume() > 0 && curOrder != null){
 				Trade trade = new Trade();
 				if(curOrder.getVolume() <= order.getVolume()){
 					order.setVolume(order.getVolume() - curOrder.getVolume());
 					trade.Init(order.getOrderId(), curOrder.getOrderId(), curOrder.getVolume(), curOrder.getPrice());
 					this.removeOrder(curOrder);
-					curOrder = ol.head;
+					curOrder = ol.getHead();
 				}else{
 					trade.Init(order.getOrderId(), curOrder.getOrderId(), order.getVolume(), curOrder.getPrice());
 					curOrder.setVolume(curOrder.getVolume() - order.getVolume());
@@ -149,14 +149,14 @@ class OrderBook {
 				break;
 			}
 			OrderList ol = sells.getOrderList(minPrice);
-			Order curOrder = ol.head;
+			Order curOrder = ol.getHead();
 			while(order.getVolume() > 0 && curOrder != null){
 				Trade trade = new Trade();
 				if(curOrder.getVolume() <= order.getVolume()){
 					order.setVolume(order.getVolume() - curOrder.getVolume());
 					trade.Init(order.getOrderId(), curOrder.getOrderId(), curOrder.getVolume(), curOrder.getPrice());
 					this.removeOrder(curOrder);
-					curOrder = ol.head;
+					curOrder = ol.getHead();
 				}else{
 					trade.Init(order.getOrderId(), curOrder.getOrderId(), order.getVolume(), curOrder.getPrice());
 					curOrder.setVolume(curOrder.getVolume() - order.getVolume());

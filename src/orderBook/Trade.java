@@ -1,10 +1,10 @@
 package orderBook;
 
 public class Trade {
-	int orderId1;
-	int orderId2;
-	int volume;
-	double price;
+	private int orderId1;
+	private int orderId2;
+	private int volume;
+	private double price;
 	
 	public void Init(int orderId1, int orderId2, int volume, double price){
 		this.orderId1 = orderId1;

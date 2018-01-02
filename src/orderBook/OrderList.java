@@ -1,9 +1,25 @@
 package orderBook;
 
 class OrderList {
-	Order head;
-	Order tail;
+	private Order head;
+	private Order tail;
 	
+	public Order getHead() {
+		return head;
+	}
+
+	public void setHead(Order head) {
+		this.head = head;
+	}
+
+	public Order getTail() {
+		return tail;
+	}
+
+	public void setTail(Order tail) {
+		this.tail = tail;
+	}
+
 	public OrderList(){
 		this.head = null;
 		this.tail = null;

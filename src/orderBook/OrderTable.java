@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 
 class OrderTable {
-	PriorityQueue<Double> prices;
-	HashMap<Double, OrderList> priceMap;
+	private PriorityQueue<Double> prices;
+	private HashMap<Double, OrderList> priceMap;
 	
 	public OrderTable(boolean reverse){
 		if(reverse){
