@@ -32,9 +32,9 @@ class OrderTable {
 	}
 	
 	public void addOrder(Order order){
-		addPrice(order.price);
-		OrderList orderList = priceMap.get(order.price);
-		order.orderList = orderList;
+		addPrice(order.getPrice());
+		OrderList orderList = priceMap.get(order.getPrice());
+		order.setOrderList(orderList);
 		orderList.addOrder(order);
 	}
 	

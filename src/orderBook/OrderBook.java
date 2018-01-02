@@ -54,16 +54,16 @@ class OrderBook {
 	
 	public void matchOrder(Order order){
 		List<Trade> trades;
-		if(order.side == Side.BUY){
+		if(order.getSide() == Side.BUY){
 			trades = matchBuyOrder(order);
-			if(order.volume > 0){
-				this.orderMap.put(order.orderId, order);
+			if(order.getVolume() > 0){
+				this.orderMap.put(order.getOrderId(), order);
 				this.buys.addOrder(order);
 			}
 		}else{
 			trades = matchSellOrder(order);
-			if(order.volume > 0){
-				this.orderMap.put(order.orderId, order);
+			if(order.getVolume() > 0){
+				this.orderMap.put(order.getOrderId(), order);
 				this.sells.addOrder(order);
 			}
 		}
@@ -73,12 +73,12 @@ class OrderBook {
 	public void modifyOrder(int orderId, OrderType orderType, int volume, double price){
 		if(orderMap.containsKey(orderId)){
 			Order order = orderMap.get(orderId);
-			if(price == order.price){
-				order.volume = volume;
+			if(price == order.getPrice()){
+				order.setVolume(volume);
 			}else{
 				this.removeOrder(order);
-				order.price = price;
-				order.volume = volume;
+				order.setPrice(price);
+				order.setVolume(volume);
 				this.matchOrder(order);
 			}
 		}
@@ -92,12 +92,12 @@ class OrderBook {
 	}
 	
 	public void removeOrder(Order order){
-		OrderList ol = order.orderList;
-		double price = order.price;
-		this.orderMap.remove(order.orderId);
+		OrderList ol = order.getOrderList();
+		double price = order.getPrice();
+		this.orderMap.remove(order.getOrderId());
 		ol.removeOrder(order);
 		if(ol.isEmpty()){
-			switch(order.side){
+			switch(order.getSide()){
 				case BUY:
 					buys.removePrice(price);
 					break;
@@ -116,24 +116,24 @@ class OrderBook {
 	
 	public List<Trade> matchSellOrder(Order order){
 		List<Trade> trades = new ArrayList<Trade>();
-		while(order.volume > 0 && !buys.isEmpty()){
+		while(order.getVolume() > 0 && !buys.isEmpty()){
 			double maxPrice = buys.getMaxPrice();
-			if(order.orderType == OrderType.LIMIT && maxPrice < order.price){
+			if(order.getOrderType() == OrderType.LIMIT && maxPrice < order.getPrice()){
 				break;
 			}
 			OrderList ol = buys.getOrderList(maxPrice);
 			Order curOrder = ol.head;
-			while(order.volume > 0 && curOrder != null){
+			while(order.getVolume() > 0 && curOrder != null){
 				Trade trade = new Trade();
-				if(curOrder.volume <= order.volume){
-					order.volume -= curOrder.volume;
-					trade.Init(order.orderId, curOrder.orderId, curOrder.volume, curOrder.price);
+				if(curOrder.getVolume() <= order.getVolume()){
+					order.setVolume(order.getVolume() - curOrder.getVolume());
+					trade.Init(order.getOrderId(), curOrder.getOrderId(), curOrder.getVolume(), curOrder.getPrice());
 					this.removeOrder(curOrder);
 					curOrder = ol.head;
 				}else{
-					trade.Init(order.orderId, curOrder.orderId, order.volume, curOrder.price);
-					curOrder.volume -= order.volume;
-					order.volume = 0;
+					trade.Init(order.getOrderId(), curOrder.getOrderId(), order.getVolume(), curOrder.getPrice());
+					curOrder.setVolume(curOrder.getVolume() - order.getVolume());
+					order.setVolume(0);
 				}
 				trades.add(trade);
 			}
@@ -143,24 +143,24 @@ class OrderBook {
 	
 	public List<Trade> matchBuyOrder(Order order){
 		List<Trade> trades = new ArrayList<Trade>();
-		while(order.volume > 0 && !sells.isEmpty()){
+		while(order.getVolume() > 0 && !sells.isEmpty()){
 			double minPrice = sells.getMinPrice();
-			if(order.orderType == OrderType.LIMIT &&  minPrice > order.price){
+			if(order.getOrderType() == OrderType.LIMIT &&  minPrice > order.getPrice()){
 				break;
 			}
 			OrderList ol = sells.getOrderList(minPrice);
 			Order curOrder = ol.head;
-			while(order.volume > 0 && curOrder != null){
+			while(order.getVolume() > 0 && curOrder != null){
 				Trade trade = new Trade();
-				if(curOrder.volume <= order.volume){
-					order.volume -= curOrder.volume;
-					trade.Init(order.orderId, curOrder.orderId, curOrder.volume, curOrder.price);
+				if(curOrder.getVolume() <= order.getVolume()){
+					order.setVolume(order.getVolume() - curOrder.getVolume());
+					trade.Init(order.getOrderId(), curOrder.getOrderId(), curOrder.getVolume(), curOrder.getPrice());
 					this.removeOrder(curOrder);
 					curOrder = ol.head;
 				}else{
-					trade.Init(order.orderId, curOrder.orderId, order.volume, curOrder.price);
-					curOrder.volume -= order.volume;
-					order.volume = 0;
+					trade.Init(order.getOrderId(), curOrder.getOrderId(), order.getVolume(), curOrder.getPrice());
+					curOrder.setVolume(curOrder.getVolume() - order.getVolume());
+					order.setVolume(0);
 				}
 				trades.add(trade);
 			}

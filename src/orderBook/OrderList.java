@@ -14,22 +14,22 @@ class OrderList {
 			this.head = order;
 			this.tail = order;
 		} else{
-			this.tail.next = order;
-			order.prev = this.tail;
+			this.tail.setNext(order);
+			order.setPrev(this.tail);
 			this.tail = order;
 		}
 	}
 	
 	public void removeOrder(Order order){
-		if(order.prev == null){
-			this.head = order.next;
+		if(order.getPrev() == null){
+			this.head = (order.getNext());
 		}else{
-			order.prev.next = order.next;
+			order.getPrev().setNext(order.getNext());
 		}
-		if(order.next == null){
-			this.tail = order.prev;
+		if(order.getNext() == null){
+			this.tail = order.getPrev();
 		}else{
-			order.next.prev = order.prev;
+			order.getNext().setPrev(order.getPrev());
 		}
 	}
 	
