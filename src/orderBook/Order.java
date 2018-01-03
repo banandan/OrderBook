@@ -8,6 +8,11 @@ enum OrderType{
 	LIMIT, MARKET, MODIFY, CANCEL;
 }
 
+/**
+ * This class stores the meta information associated with an order
+ * @author Balamurugan Anandan
+ *
+ */
 class Order {
 	private int orderId;
 	private int volume;
@@ -18,6 +23,14 @@ class Order {
 	private Order next;
 	private Order prev;
 	
+	/**
+	 * This constructor creates a new order
+	 * @param orderId unique order id
+	 * @param orderType type of the order
+	 * @param side buy/sell order
+	 * @param volume quantity of the order
+	 * @param price price of the order
+	 */
 	public Order(int orderId, OrderType orderType, Side side, int volume, double price){
 		this.orderId = orderId;
 		this.volume = volume;

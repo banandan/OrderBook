@@ -1,5 +1,10 @@
 package orderBook;
 
+/**
+ * This class maintains the list of orders as a doubly linked list
+ * @author Balamurugan Anandan
+ * 
+ */
 class OrderList {
 	private Order head;
 	private Order tail;
@@ -25,6 +30,10 @@ class OrderList {
 		this.tail = null;
 	}
 
+	/**
+	 * adds/appends an order to the order list
+	 * @param order this new order will be added
+	 */
 	public void addOrder(Order order){
 		if(this.head == null){
 			this.head = order;
@@ -36,6 +45,10 @@ class OrderList {
 		}
 	}
 	
+	/**
+	 * removes an order from the order list
+	 * @param order to be removed
+	 */
 	public void removeOrder(Order order){
 		if(order.getPrev() == null){
 			this.head = (order.getNext());
@@ -49,6 +62,9 @@ class OrderList {
 		}
 	}
 	
+	/**
+	 * @return if the order list is empty
+	 */
 	public boolean isEmpty(){
 		return this.head==null;
 	}
