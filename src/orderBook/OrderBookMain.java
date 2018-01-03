@@ -2,10 +2,15 @@ package orderBook;
 
 import java.util.*;
 
-public class Solution {
+/**
+ * This class is the main entry point which parses the input and sent
+ * to the Order Book for further processing
+ * @author Balamurugan Anandan
+ *
+ */
+public class OrderBookMain {
 	public static void main(String args[]) throws Exception {
 		OrderBook ob = new OrderBook();
-		/* Enter your code here. Read input from STDIN. Print output to STDOUT */
 		Scanner scan = new Scanner(System.in);
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine();
