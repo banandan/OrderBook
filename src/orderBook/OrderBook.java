@@ -46,7 +46,7 @@ class OrderBook {
 			side = Side.SELL;
 		} else {
 			throw new IllegalArgumentException(
-					"orderSide does not match buy/sell" + sideStr);
+					"orderSide does not match buy/sell " + sideStr);
 		}
 		OrderType orderType;
 		if (orderTypeStr.equals("limit")) {
@@ -59,7 +59,7 @@ class OrderBook {
 			orderType = OrderType.CANCEL;
 		} else {
 			throw new IllegalArgumentException(
-					"orderType is not one of limit/market/modify/cancel"
+					"orderType is not one of limit/market/modify/cancel "
 							+ orderTypeStr);
 		}
 		Order order;
